@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    body
+
+        h4 #{c.cliente.nombre} | #{c.cliente.estado}
+        h4 #{tipo_cliente}
+        h4 #{c.id}
+
+        table
+            thead
+                th #
+                th Producto
+                th Cantidad
+                th Precio Unitario
+                th Importe
+            tbody
+                each item, index in c.lista_productos
+                    tr
+                        td #{index}
+                        td #{item.producto.name}
+                        td #{item.cantidad}
+                        case tipo_precio
+                            when 0
+                                td $#{item.producto.precio.publico}
+                            default
+                                td $#{item.producto.precio.distribuidor_preferencial}
+                        td $#{item.importe}
+        
+        h4 $#{subtotal}
+        h4 $#{envio_gratis}
+        h4 $#{c.totalCompra}
+                        
+
+                    
+                
