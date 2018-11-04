@@ -1,0 +1,75 @@
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    link(type='text/css', rel='stylesheet', href='../src/materialize/css/materialize.min.css', media='screen,projection')
+    link(type='text/css', rel='stylesheet', href='../src/style.css', media='screen,projection')
+  body
+    .container
+      .row
+        .col.s3
+          img.responsive-img(width='100', src='../img/JLIB_Icon2.png', alt='')
+        .col.s6(style='text-align: center')
+          h3 Cotización
+        .col.s3(style='text-align: right')
+          img.responsive-img(width='100', src='../img/JLIB_Icon2.png', alt='')
+      .row
+        h5(style='margin-left: 50px')
+          strong Fecha:
+          |  #{c.id}
+      .row
+        .col.s9
+          .row
+            .col.s12
+              .card
+                .card-content
+                  table.responsive-table
+                    thead
+                      tr
+                        th #
+                        th Producto
+                        th Cantidad
+                        th Precio
+                        th Importe
+                    tbody
+                      each item, index in c.lista_productos
+                        tr
+                            td #{index + 1}
+                            td #{item.producto.name}
+                            td #{item.cantidad}
+                            case tipo_precio
+                                when 0
+                                    td $#{item.producto.precio.publico}
+                                default
+                                    td $#{item.producto.precio.distribuidor_preferencial}
+                            td $#{item.importe}
+          .row
+            .col.s12
+              .card
+                .card-content
+                  table.responsive-table
+                    thead
+                    tbody
+                      tr
+                        td
+                          | Subtotal:
+                        td $#{subtotal}
+                      tr
+                        td
+                          | Envio:
+                        td #{envio_gratis}
+                      tr
+                        td
+                          | Total compra:
+                        td $#{c.totalCompra}
+        .col.s3
+          .card
+            .card-content
+              span.card-title
+                strong Cliente
+              p #{c.cliente.nombre}
+              br
+              p #{c.cliente.estado}
+              br
+              p #{tipo_cliente}

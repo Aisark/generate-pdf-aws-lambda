@@ -7,6 +7,10 @@ const tipo_documento = [
     'orden_empaquetar'
 ]
 
+const options_pdf = {
+    base: 'file:///var/task/'
+}
+
 let getTemplate = async (tipo_order, body) => {
     
     let path = `/var/task/templates/template_${tipo_documento[tipo_order]}.pug`
@@ -16,7 +20,7 @@ let getTemplate = async (tipo_order, body) => {
 
 let htmlCreate = (template) => {
     return new Promise( (res, rej) => {
-        htmlPdf.create(template).toBuffer( (err, buffer) => {
+        htmlPdf.create(template,options_pdf).toBuffer( (err, buffer) => {
             if (err) rej(err);
     
             res(buffer.toString('base64'));
